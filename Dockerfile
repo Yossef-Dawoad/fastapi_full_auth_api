@@ -4,14 +4,23 @@ FROM python:3.11
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+WORKDIR /code 
 
-COPY requirements.prod.txt requirements.txt
+COPY requirements.prod.txt code/requirements.txt
 
+# install system dependencies
+RUN apt-get update \
+  && apt-get -y install gcc libpq-dev \
+  && apt-get clean
+
+# install python dependencies
 RUN python -m pip install --upgrade pip
-RUN pip install -r requirements.txt --target=/app --no-cache-dir
+RUN pip install -r code/requirements.txt --no-cache-dir
 
-# copy the application to the /app directory
-COPY ./auth /app
+# copy the application to the /code directory
+COPY . /code
 
-EXPOSE 8080
+EXPOSE 8000
+
+# run the uvicorn server
+CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
