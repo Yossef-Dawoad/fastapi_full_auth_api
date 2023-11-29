@@ -19,7 +19,7 @@ SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 Base = declarative_base()
 
-def get_session() -> Generator:
+def get_db() -> Generator:
     session = SessionLocal()
     try: yield session
     finally: session.close()

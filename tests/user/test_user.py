@@ -16,7 +16,7 @@ user_create_data = {
 
 def test_create_user(client: TestClient) -> None:
     response = client.post(
-        "/user/",
+        "/users/",
         json=user_create_data,
         # headers={'Authorization': f'Bearer {user_access_token}'},
     )

@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /code 
 
-COPY requirements.prod.txt code/requirements.txt
 
 # install system dependencies
 RUN apt-get update \
@@ -15,6 +14,7 @@ RUN apt-get update \
 
 # install python dependencies
 RUN python -m pip install --upgrade pip
+COPY requirements.prod.txt code/requirements.txt
 RUN pip install -r code/requirements.txt --no-cache-dir
 
 # copy the application to the /code directory
@@ -23,4 +23,4 @@ COPY . /code
 EXPOSE 8000
 
 # run the uvicorn server
-CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
+CMD [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload" ]

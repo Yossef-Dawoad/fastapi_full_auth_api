@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from auth.db import Base, get_session
+from auth.db import Base, get_db
 from main import app
 
 # create a test database connection
@@ -32,5 +32,5 @@ def client(app_test, test_session) -> Generator:   # noqa: ANN001
     def _test_db():  # noqa: ANN202
         try: yield test_session
         finally: pass
-    app_test.dependency_overrides[get_session] = _test_db
+    app_test.dependency_overrides[get_db] = _test_db
     return TestClient(app_test)
