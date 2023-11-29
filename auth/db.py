@@ -1,7 +1,9 @@
-from auth.configs import get_settings
-from sqlalchemy.orm import sessionmaker, declarative_base
-from typing import Generator
+from collections.abc import Generator
+
 from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+
+from auth.configs import get_settings
 
 settings = get_settings()
 
@@ -19,5 +21,5 @@ Base = declarative_base()
 
 def get_session() -> Generator:
     session = SessionLocal()
-    try: yield session  # noqa: E701
-    finally: session.close() # noqa: E701
+    try: yield session
+    finally: session.close()
