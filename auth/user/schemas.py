@@ -2,13 +2,13 @@
 
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserCreateSchema(BaseModel):
     name: str
     email: EmailStr
-    password: str
+    password: str = Field(min_length=8 )
 
 class UserResponseSchema(BaseModel):
     id: int

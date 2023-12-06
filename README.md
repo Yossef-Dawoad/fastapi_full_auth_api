@@ -22,3 +22,13 @@ docker-compose run app alembic upgrade head
 ## Usages (Comming Sooon)
 
 ## Public Routes Available  
+
+
+## Features
+[x] Simple User creation or registeration process
+[x] injecting email verification system into the registeration process
+[ ] welcome emaill with succesfull email verification
+[ ] user login process
+[ ] test coverage of up 90%
+[ ] 100% migration to sqlalchemy 2.x sentax
+[ ] 100% migration to pydantic 2.x sentax 

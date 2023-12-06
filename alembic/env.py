@@ -4,9 +4,9 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 #ADDED
-from auth.db import Base
+from auth.confdb import Base
 from auth.user.models import User
-from auth.configs import get_settings
+from auth.confsettings import get_settings
 
 
 from alembic import context

@@ -1,9 +1,9 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
-from auth.db import Base
-from auth.user import hashing
+from auth.confdb import Base
+from auth.user import security
 
 
 class User(Base):
@@ -23,7 +23,25 @@ class User(Base):
 
     def __init__(self, password: str, *args:tuple, **kwargs: dict) -> None:
         super().__init__(*args, **kwargs)
-        self.password = hashing.get_password_hash(password)
+        self.password = security.get_str_hash(password)
 
     def verify_password(self, password: str) -> bool:
-        return hashing.verify_password(password, self.password)
+        return security.verify_password(password, self.password)
+
+    def user_token(self, context: str) -> str:
+        """
+        unique token for each user used in somthing like email verification
+
+        :param context:
+            is any arabtray string that maybe resamble the contex you want
+            to use teh user token in.
+        e.g.::
+
+            # for email verification
+            user = User(**kwargs)
+            token = user.user_token('email verification')
+        """
+        self.updated_at = datetime.now(timezone.utc)
+        return f"""
+                {context}{self.password[-6:]}{self.updated_at.strftime('%m%d%Y%H%M%S')}
+                """.strip()
