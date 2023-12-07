@@ -10,6 +10,10 @@ class UserCreateSchema(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8 )
 
+class  UserVerifySchema(BaseModel):
+    email: EmailStr
+    token: str
+
 class UserResponseSchema(BaseModel):
     id: int
     name: str

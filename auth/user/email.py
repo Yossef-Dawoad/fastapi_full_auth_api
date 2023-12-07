@@ -15,7 +15,7 @@ async def send_request_verification_email(
         user: User,
         background_tasks: BackgroundTasks,
 ) -> None:
-    user_token = user.user_token(context=VERIFY_ACCOUNT_CTX)
+    user_token = user.user_ctx_token(context=VERIFY_ACCOUNT_CTX)
     hashed_user_token = get_str_hash(user_token)
 
     activate_url = \
@@ -38,7 +38,7 @@ async def send_request_verification_email(
     )
 
 
-async def send_welcome_confirmation_email(
+async def send_welcome_successful_activation_email(
         user: User,
         background_tasks: BackgroundTasks,
 )-> None:
@@ -62,7 +62,7 @@ async def send_password_reset_email(
         background_tasks: BackgroundTasks,
 ) -> None:
 
-    user_token = user.user_token(context=FORGOT_PASSWORD_CTX)
+    user_token = user.user_ctx_token(context=FORGOT_PASSWORD_CTX)
     hashed_user_token = get_str_hash(user_token)
     reset_url = \
     f"""

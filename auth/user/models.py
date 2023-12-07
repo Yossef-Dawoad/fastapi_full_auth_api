@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
@@ -15,7 +15,7 @@ class User(Base):
 
     # nullable or default values
     mobile = Column(String, nullable=True)
-    is_active = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=False)
     is_superuser = Column(Boolean, default=False)
     verified_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.now, nullable=False)
@@ -28,7 +28,7 @@ class User(Base):
     def verify_password(self, password: str) -> bool:
         return security.verify_password(password, self.password)
 
-    def user_token(self, context: str) -> str:
+    def user_ctx_token(self, context: str) -> str:
         """
         unique token for each user used in somthing like email verification
 
@@ -39,9 +39,8 @@ class User(Base):
 
             # for email verification
             user = User(**kwargs)
-            token = user.user_token('email verification')
+            token = user.user_ctx_token('email verification')
         """
-        self.updated_at = datetime.now(timezone.utc)
         return f"""
                 {context}{self.password[-6:]}{self.updated_at.strftime('%m%d%Y%H%M%S')}
                 """.strip()

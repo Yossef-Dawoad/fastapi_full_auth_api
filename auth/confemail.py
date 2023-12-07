@@ -2,15 +2,18 @@ from pathlib import Path
 
 from fastapi.background import BackgroundTasks
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
-from pydantic import EmailStr
+from pydantic import BaseModel, EmailStr
 
 from auth.confsettings import get_settings, mail_settings
 
 settings = get_settings()
 
+class EmailSchema(BaseModel):
+    email: list[EmailStr]
+
 conf = ConnectionConfig(
     **mail_settings.model_dump(),
-    TEMPLATE_FOLDER=Path(__file__).parent.joinpath("templates"),
+    TEMPLATE_FOLDER = Path(__file__).parent.joinpath("templates"),
 )
 # print("***********"*20)
 # print(conf)

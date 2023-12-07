@@ -1,31 +1,12 @@
 
-import pytest
+
+
+
 from fastapi import status
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from auth.user.models import User
-
-# create dummy fake data
-UserName = "test"
-UserPassword = "<Password123>"
-UserEmail = "keshari@describly.com"
-
-user_create_data = {
-    "name": UserName,
-    "email": UserEmail,
-    "password": UserPassword,
-}
-
-
-@pytest.fixture(scope="function")
-def inactive_user(test_dbsession: Session) -> User:
-    user = User(**user_create_data, is_active=False)
-
-    test_dbsession.add(user)
-    test_dbsession.commit()
-    test_dbsession.refresh(user)
-    return user
+from tests.conftest import user_create_data
 
 
 def test_create_user(client: TestClient) -> None:
