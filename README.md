@@ -1,6 +1,6 @@
 # FASTAPI *Complete Auth system
 
-the project aims as a resoursefull best practices for building production grade web applications as possible with fastapi starting with all you need about authentication.
+the project aims as a resourceful best practice for building production-grade web applications as possible with fastapi starting with all you need about authentication.
 
 # Installation 
 ### Method 1 - Docker
@@ -25,10 +25,12 @@ docker-compose run app alembic upgrade head
 
 
 ## Features
-[x] Simple User creation or registeration process
-[x] injecting email verification system into the registeration process
-[ ] welcome emaill with succesfull email verification
-[ ] user login process
-[ ] test coverage of up 90%
-[ ] 100% migration to sqlalchemy 2.x sentax
-[ ] 100% migration to pydantic 2.x sentax 
+- [x] Simple User creation or registration process  
+- [x] injecting an email verification system into the registration process  
+- [x] welcome email with successful email verification  
+- [x] user signup & create email 
+- [x] verify account process with mail verifcation system 
+- [x] user login process
+- [ ] test coverage of up 90%  
+- [ ] 100% migration to sqlalchemy 2.x syntax  
+- [ ] 100% migration to pydantic 2.x syntax   
