@@ -12,8 +12,8 @@ settings = get_settings()
 
 
 async def send_request_verification_email(
-        user: User,
-        background_tasks: BackgroundTasks,
+    user: User,
+    background_tasks: BackgroundTasks,
 ) -> None:
     user_token = user.user_ctx_token(context=VERIFY_ACCOUNT_CTX)
     hashed_user_token = get_str_hash(user_token)
@@ -25,7 +25,7 @@ async def send_request_verification_email(
 
     data = {
         'app_name': settings.app_name,
-        "name": user.name,
+        "name": user.username,
         'activate_url': activate_url,
     }
 
@@ -39,12 +39,12 @@ async def send_request_verification_email(
 
 
 async def send_welcome_successful_activation_email(
-        user: User,
-        background_tasks: BackgroundTasks,
+    user: User,
+    background_tasks: BackgroundTasks,
 )-> None:
     data = {
         'app_name': settings.app_name,
-        "name": user.name,
+        "name": user.username,
         'login_url': f'{settings.FRONTEND_HOST}',
     }
 
@@ -58,8 +58,8 @@ async def send_welcome_successful_activation_email(
 
 
 async def send_password_reset_email(
-        user: User,
-        background_tasks: BackgroundTasks,
+    user: User,
+    background_tasks: BackgroundTasks,
 ) -> None:
 
     user_token = user.user_ctx_token(context=FORGOT_PASSWORD_CTX)
@@ -71,7 +71,7 @@ async def send_password_reset_email(
 
     data = {
         'app_name': settings.app_name,
-        "name": user.name,
+        "name": user.username,
         'activate_url': reset_url,
     }
 

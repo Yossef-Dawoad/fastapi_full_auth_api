@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 #ADDED
 from auth.confdb import Base
-from auth.user.models import User
+from auth.user.models import User, UserToken
 from auth.confsettings import get_settings
 
 

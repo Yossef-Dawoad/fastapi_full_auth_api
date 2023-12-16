@@ -1,6 +1,8 @@
+
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+
 SPECIAL_CHARCTERS = list('@#$%+:?>.<\\|/~, ')
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -17,3 +19,4 @@ def is_password_strong(password: str) -> bool:
     if not any(ch in SPECIAL_CHARCTERS for ch in password): return False
 
     return True
+

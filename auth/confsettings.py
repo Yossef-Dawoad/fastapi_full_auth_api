@@ -7,6 +7,12 @@ class Settings(BaseSettings):
     app_name: str
     database_url: str
 
+    secret_key: str
+    jwt_secret_key: str
+    jwt_refresh_secret_key: str
+    algorithm: str
+    REFRESH_TOKEN_EXPIRE_TIME: int
+
     FRONTEND_HOST: str = 'http://localhost:3000'
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')
 
