@@ -18,6 +18,8 @@ class User(Base):
     mobile = Column(String, nullable=True)
     is_active = Column(Boolean, default=False)
     is_superuser = Column(Boolean, default=False)
+
+    # DateTime frames
     verified_at = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.now, nullable=False)
     updated_at = Column(DateTime, default=None, onupdate=datetime.now, nullable=True)
@@ -37,8 +39,8 @@ class User(Base):
         unique token for each user used in somthing like email verification
 
         :param context:
-            is any arabtray string that maybe resamble the contex you want
-            to use teh user token in.
+            is any arabtray string that maybe resamble the context you want
+            to use the user token in.
         e.g.::
 
             # for email verification

@@ -35,7 +35,7 @@ class MailSettings(BaseSettings):
 
 
 @lru_cache
-def get_settings() -> Settings:
-    return Settings()
+def get_settings() -> Settings: return Settings()
 
-mail_settings = MailSettings()
+@lru_cache
+def get_mail_settings() -> MailSettings: return MailSettings()

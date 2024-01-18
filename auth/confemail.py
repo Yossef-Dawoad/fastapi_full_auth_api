@@ -4,19 +4,20 @@ from fastapi.background import BackgroundTasks
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from pydantic import BaseModel, EmailStr
 
-from auth.confsettings import get_settings, mail_settings
+from auth.confsettings import get_mail_settings, get_settings
 
 settings = get_settings()
+
 
 class EmailSchema(BaseModel):
     email: list[EmailStr]
 
+
 conf = ConnectionConfig(
-    **mail_settings.model_dump(),
-    TEMPLATE_FOLDER = Path(__file__).parent.joinpath("templates"),
+    **get_mail_settings.model_dump(),
+    TEMPLATE_FOLDER=Path(__file__).parent.joinpath("templates"),
 )
-# print("***********"*20)
-# print(conf)
+
 fm = FastMail(conf)
 
 
@@ -26,7 +27,7 @@ async def send_email(
     context: dict,
     template_name: str,
     background_tasks: BackgroundTasks,
-) -> None :
+) -> None:
     message = MessageSchema(
         subject=subject,
         recipients=recipients,
@@ -34,4 +35,8 @@ async def send_email(
         subtype=MessageType.html,
     )
 
-    background_tasks.add_task(fm.send_message, message, template_name=template_name)
+    background_tasks.add_task(
+        fm.send_message,
+        message,
+        template_name=template_name,
+    )

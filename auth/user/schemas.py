@@ -6,9 +6,9 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class UserCreateSchema(BaseModel):
-    name: str
+    username: str
     email: EmailStr
-    password: str = Field(min_length=8 )
+    password: str = Field(min_length=8)
 
 class  UserVerifySchema(BaseModel):
     email: EmailStr
@@ -16,7 +16,7 @@ class  UserVerifySchema(BaseModel):
 
 class UserResponseSchema(BaseModel):
     id: int
-    name: str
+    username: str
     email: EmailStr
     is_active: bool
     created_at: str | datetime | None
